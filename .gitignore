@@ -1,0 +1,11 @@
+## Ignore the build folder
+target/
+
+## Ignore any artifacts
+*.jar
+*.ear
+*.war
+
+## IntelliJ project files
+*.iml
+.idea
