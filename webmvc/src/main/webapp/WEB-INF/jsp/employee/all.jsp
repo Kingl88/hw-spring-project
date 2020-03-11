@@ -19,6 +19,14 @@
             <td><label>Surname</label></td>
             <td><c:out value="${employee.surname}"/></td>
         </tr>
+        <tr>
+            <td><label>Date</label></td>
+            <td><c:out value="${employee.date}"/></td>
+        </tr>
+        <tr>
+            <td><label>Department</label></td>
+            <td><c:out value="${employee.department}"/></td>
+        </tr>
     </table>
 </c:forEach>
 </body>
