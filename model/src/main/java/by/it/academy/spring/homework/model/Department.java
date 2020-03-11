@@ -18,10 +18,9 @@ public class Department {
     private String departmentName;
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Employee> employees = new HashSet<>(0);
-    public Department(String name) {
+    public Department(String name){
         this.departmentName = name;
     }
-    public Department() {
-
+    public Department(){
     }
 }

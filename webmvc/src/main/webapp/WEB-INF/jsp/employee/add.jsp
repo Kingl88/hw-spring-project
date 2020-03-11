@@ -24,7 +24,7 @@
     <label> Department
         <select name="department">
             <c:forEach var="name" items="${departments}">
-                <option value="${departments.departmentId}">${departments.departmentName}</option>
+                <option value="${name.departmentName}">${name.departmentName}</option>
             </c:forEach>
         </select>
     </label>

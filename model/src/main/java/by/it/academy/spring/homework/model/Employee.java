@@ -1,11 +1,10 @@
 package by.it.academy.spring.homework.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,6 +21,8 @@ public class Employee {
     private String surname;
     @CreationTimestamp
     private LocalDateTime date;
-    @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "DEPARTMENT_ID")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) @JoinColumn(name = "departmentId")
+    @JsonIgnore
     private Department department;
+
 }

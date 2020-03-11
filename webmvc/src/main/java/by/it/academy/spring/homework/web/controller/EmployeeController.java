@@ -1,6 +1,8 @@
 package by.it.academy.spring.homework.web.controller;
 
+import by.it.academy.spring.homework.model.Department;
 import by.it.academy.spring.homework.model.Employee;
+import by.it.academy.spring.homework.service.DepartmentService;
 import by.it.academy.spring.homework.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
     @RequestMapping(method = RequestMethod.GET)
     public String getAllEmployees(Model model) {
         List<Employee> employees = employeeService.findAll();
@@ -29,7 +34,8 @@ public class EmployeeController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String addEmployeePage(Model model, HttpServletRequest request) {
+    public String addEmployeePage(Model model) {
+        model.addAttribute("departments", departmentService.findAll());
         model.addAttribute("employee", new Employee());
         return "employee/add";
     }
