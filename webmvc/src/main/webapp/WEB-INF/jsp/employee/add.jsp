@@ -22,9 +22,9 @@
         </tr>
     </table>
     <label> Department
-        <select name="department">
+        <select name="Id">
             <c:forEach var="name" items="${departments}">
-                <option value="${name.departmentName}">${name.departmentName}</option>
+                <option value="${name.departmentId}">${name.departmentName}</option>
             </c:forEach>
         </select>
     </label>

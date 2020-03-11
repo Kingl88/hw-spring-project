@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/employees")
@@ -35,16 +36,18 @@ public class EmployeeController {
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String addEmployeePage(Model model) {
-        model.addAttribute("departments", departmentService.findAll());
         model.addAttribute("employee", new Employee());
+        model.addAttribute("departments", departmentService.findAll());
         return "employee/add";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String addEmployeeSubmit(@Validated @ModelAttribute("employee") Employee employee, BindingResult bindingResult) {
+    public String addEmployeeSubmit(@Validated @ModelAttribute("employee") Employee employee, @ModelAttribute("Id") Long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "employee/add";
         }
+        Optional<Department> department1 = departmentService.find(id);
+        employee.setDepartment(department1.orElse(null));
         employeeService.addEmployee(employee);
         return "redirect:/employees";
     }
