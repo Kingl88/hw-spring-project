@@ -5,9 +5,7 @@ import by.it.academy.spring.homework.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,4 +22,29 @@ public class EmployeeRestController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable("id") Long id,
+                                                   @RequestBody Employee newEmployee) {
+        Employee employee = employeeService.find(id).orElse(null);
+        if (employee == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        employee.setName(newEmployee.getName());
+        employee.setSurname(newEmployee.getSurname());
+
+        newEmployee = employeeService.update(employee);
+        return new ResponseEntity<>(newEmployee, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteEmployee(@PathVariable("id") Long id) {
+        employeeService.delete(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Employee> addEmployee( @RequestBody Employee newEmployee) {
+        newEmployee = employeeService.addEmployee(newEmployee);
+        return new ResponseEntity<>(newEmployee, HttpStatus.OK);
+    }
 }
